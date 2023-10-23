@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/services/auth_service.dart';
 import 'package:flutter_application_1/views/splash_screen_view.dart';
 import 'package:flutter_application_1/views/user_list_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -12,10 +13,12 @@ void main() async {
   String? savedToken = prefs.getString('token');
 
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      home: savedToken != null ? UserListView() : SplashScreen(),
+    ProviderScope(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Material App',
+        home: savedToken != null ? UserListView() : SplashScreen(),
+      ),
     ),
   );
 }
