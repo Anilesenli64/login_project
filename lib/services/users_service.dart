@@ -1,4 +1,4 @@
-// user_service.dart
+// users_service.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/user_model.dart';
@@ -12,9 +12,11 @@ class UsersService {
       final Map<String, dynamic> data = json.decode(response.body);
       final List<dynamic> usersData = data['data'];
 
-      return List<UserModel>.from(usersData.map((user) => UserModel.fromJson(user)));
+      return List<UserModel>.from(
+          usersData.map((user) => UserModel.fromJson(user)));
     } else {
-      throw Exception('Failed to load user data. Status code: ${response.statusCode}');
+      throw Exception(
+          'Failed to load user data. Status code: ${response.statusCode}');
     }
   }
 }

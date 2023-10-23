@@ -25,14 +25,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          shadowColor: Colors.transparent,
-          backgroundColor: Colors.transparent,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          appBar: AppBar(
+            shadowColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
+          ),
+          body: MyLoginForm(),
         ),
-        body: MyLoginForm(),
       ),
     );
   }
@@ -63,38 +68,64 @@ class _MyLoginFormState extends State<MyLoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            const FlutterLogo(size: 150),
-            const SizedBox(
-              height: 20,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(bottom: 50),
+            child: Image.asset(
+              'assets/images/Login-amico.png',
+              width: 200,
             ),
-            TextFormField(
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextFormField(
               controller: emailController,
               decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.orangeAccent)),
+                  borderSide: BorderSide(color: Colors.orangeAccent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orangeAccent),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orangeAccent),
+                ),
                 border: InputBorder.none,
                 labelText: 'Email',
+                labelStyle: TextStyle(color: Colors.orangeAccent),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextFormField(
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: TextFormField(
               controller: passwordController,
               decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.orangeAccent)),
+                  borderSide: BorderSide(color: Colors.orangeAccent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orangeAccent),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orangeAccent),
+                ),
                 border: InputBorder.none,
                 labelText: 'Password',
+                labelStyle: TextStyle(color: Colors.orangeAccent),
               ),
               obscureText: true,
             ),
-            ElevatedButton(
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            width: double.infinity,
+            child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orangeAccent),
               onPressed: () async {
@@ -137,14 +168,23 @@ class _MyLoginFormState extends State<MyLoginForm> {
                     },
                   );
                 } else {
-                  // Handle login failure
-                  print('Login failed');
+                  // ignore: use_build_context_synchronously
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      backgroundColor: Colors.redAccent,
+                      duration: Duration(seconds: 2),
+                      content: Text("Bilgileriniz hatalı veya eksik."),
+                    ),
+                  );
                 }
               },
-              child: const Text("Login"),
+              child: const Padding(
+                padding: EdgeInsets.all(15),
+                child: Text("Login"),
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

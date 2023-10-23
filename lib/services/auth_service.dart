@@ -1,8 +1,10 @@
-// auth_service.dart
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:email_validator/email_validator.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+final authService = Provider((ref) => AuthService());
 
 class AuthService {
   Future<bool> performLogin(String email, String password) async {
@@ -37,18 +39,17 @@ class AuthService {
   }
 
   Future<void> _saveTokenLocally(String token) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     prefs.setString('token', token);
   }
 
   Future<void> performLogout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    // Remove the stored token
+    final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
   }
 
   Future<String?> getToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
   }
 }

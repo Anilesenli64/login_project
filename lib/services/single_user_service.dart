@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:riverpod/riverpod.dart';
 import '../models/user_model.dart';
+
+final singleUserService = Provider((ref) => SingleUserService());
 
 class SingleUserService {
   Future<UserModel> fetchUser(int id) async {

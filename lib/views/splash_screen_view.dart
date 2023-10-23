@@ -24,7 +24,17 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: FlutterLogo(size: 150),
+        child: CircleAvatar(
+          backgroundColor: Colors.orangeAccent,
+          radius: 100,
+          child: Text(
+            "LOGO",
+            style: TextStyle(
+              fontSize: 30,
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
     );
   }
