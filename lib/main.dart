@@ -44,8 +44,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyLoginForm extends StatefulWidget {
+  const MyLoginForm({super.key});
+
   @override
-  _MyLoginFormState createState() => _MyLoginFormState();
+  State<MyLoginForm> createState() => _MyLoginFormState();
 }
 
 class _MyLoginFormState extends State<MyLoginForm> {

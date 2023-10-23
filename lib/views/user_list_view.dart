@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/views/user_detail_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../controllers/user_list_controller.dart';
 import '../main.dart';
 import '../models/user_model.dart';
-import '../services/auth_service.dart';
 import '../widgets/user_list_widget.dart';
 
 class UserListView extends StatefulWidget {
+  const UserListView({super.key});
+
   @override
-  _UserListViewState createState() => _UserListViewState();
+  State<UserListView> createState() => _UserListViewState();
 }
 
 class _UserListViewState extends State<UserListView> {
-  final AuthService _authService = AuthService();
   final UserListController _userListController = UserListController();
 
   late Future<List<UserModel>> _usersFuture;
@@ -87,7 +85,7 @@ class _UserListViewState extends State<UserListView> {
                             _usersFuture = _userListController.fetchUsers(1);
                           });
                         },
-                        child: const Text("Geri"),
+                        child: const Text("Back"),
                       ),
                       const SizedBox(
                         width: 20,
@@ -101,7 +99,7 @@ class _UserListViewState extends State<UserListView> {
                             _usersFuture = _userListController.fetchUsers(2);
                           });
                         },
-                        child: const Text("İleri"),
+                        child: const Text("Next"),
                       ),
                     ],
                   ),
